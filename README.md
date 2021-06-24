@@ -1,43 +1,49 @@
 [![GS-Frame](https://img.shields.io/badge/github-GeoStat_Framework-468a88?logo=github&style=flat)](https://github.com/GeoStat-Framework)
 [![Gitter](https://badges.gitter.im/GeoStat-Examples/community.svg)](https://gitter.im/GeoStat-Examples/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-# Template
+# Analyzing the Herten Aquifer with GSTools
 
-This is a template for an example repository.
+## Description
 
-You can create a new example by simply clicking on "Use this template".
+We are going to analyse the Herten aquifer, which is situated in Southern
+Germany. Multiple outcrop faces where surveyed and interpolated to a 3D
+dataset. In these publications, you can find more information about the data:
 
-The included example is showing the generation of a conditioned random field ensemble
-in 1D taken from [GSTools](https://geostat-framework.readthedocs.io/projects/gstools/en/stable/examples/06_conditioned_fields/00_condition_ensemble.html#sphx-glr-examples-06-conditioned-fields-00-condition-ensemble-py).
-
+> Bayer, Peter; Comunian, Alessandro; Höyng, Dominik; Mariethoz, Gregoire (2015):
+> Physicochemical properties and 3D geostatistical simulations of the Herten and the Descalvado aquifer analogs.
+> PANGAEA, https://doi.org/10.1594/PANGAEA.844167,
+> Supplement to: Bayer, P et al. (2015):
+> Three-dimensional multi-facies realizations of sedimentary reservoir and aquifer analogs.
+> Scientific Data, 2, 150033, https://doi.org/10.1038/sdata.2015.33
 
 ## Structure
 
-Please try to organize your example in the given Structure
-- `data/` - here you should place your input data
-- `src/` - here you should place your python scripts
-- `results/` - here your computed results and plots should be stored
-- `README.md` - please describe your example in the readme, potentially showing results
-- `LICENSE` - the default license is MIT, you can use another one if wanted
+The workflow is organized by the following structure:
+
+- `data/`
+  - contains a single realization of the herten aquifer downloaded by `00_download.py`
+- `src/`
+  - `00_download.py` - downloading the herten aquifer and deriving a single transmissivity realization
+  - `01_herten.py` - analyzing the herten aquifer and generating conditioned random fields
+- `results/` - all produced results
 
 
 ## Python environment
 
-To make the example reproducible, it would be a good practice to provide one of
-the following files:
-- `requirements.txt` - requirements for [pip](https://pip.pypa.io/en/stable/user_guide/#requirements-files) to install all needed packages
-- `spec-file.txt` - specification file to create the original [conda environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#building-identical-conda-environments)
+Main Python dependencies are stored in `requirements.txt`:
 
+```
+gstools==1.3.1
+pyvista
+matplotlib
+seaborn
+```
 
-## Workflow
+You can install them with `pip` (potentially in a virtual environment):
 
-After finalizing your work, you should tag the repository with a version like `v1.0`.
-
-Then, a [Zenodo](https://zenodo.org/) release will be created, so you can cite the repository in you publication.
-
-Please keep your `master` branch in line with the latest release.
-For further development use the `develop` branch and update `master` with pull-requests.
-
+```bash
+pip install -r requirements.txt
+```
 
 ## Contact
 
@@ -46,4 +52,4 @@ You can contact us via <info@geostat-framework.org>.
 
 ## License
 
-MIT © 2020
+MIT © 2021
