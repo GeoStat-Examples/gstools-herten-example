@@ -37,7 +37,8 @@ y_s = np.arange(origin[1], origin[1] + dim[1] * spacing[1], spacing[1])
 
 # imshow plotting settings
 extent = [min(x_s), max(x_s), min(y_s), max(y_s)]
-kw1 = dict(origin="lower", extent=extent)
+kw = dict(origin="lower", extent=extent)
+kw1 = dict(vmin=0.2, vmax=0.8, **kw)
 
 idx_x, idx_y = np.mgrid[40:170:10, 40:170:10]
 idx_x, idx_y = idx_x.flatten(), idx_y.flatten()
@@ -107,9 +108,6 @@ herten_ens = np.array(herten_ens)
 # Plotting ####################################################################
 ###############################################################################
 
-vmin = min(np.min(herten_T), np.min(herten_ens))
-vmax = max(np.max(herten_T), np.max(herten_ens))
-kw2 = dict(vmin=vmin, vmax=vmax, **kw1)
 c = sns.color_palette()
 
 # compare Original field with one realization #################################
@@ -119,7 +117,7 @@ rect_dim = ((min(obs_x), min(obs_y)), np.ptp(obs_x), np.ptp(obs_y))
 rect = pat.Rectangle(*rect_dim, edgecolor='k', facecolor='none')
 
 fig, ax = plt.subplots(1)
-im = ax.imshow(herten_T.T, **kw2)
+im = ax.imshow(herten_T.T, **kw1)
 cbar = add_colorbar(im)
 cbar.set_label(r"$T$ / m s$^{-1}$")
 ax.set_xlabel(r"$x$ / m")
@@ -131,7 +129,7 @@ fig.savefig(Path("../results/2d_herten_conditioned_0.pdf"), dpi=300)
 fig.show()
 
 fig, ax = plt.subplots(1)
-im = ax.imshow(herten_ens[0].T, **kw2)
+im = ax.imshow(herten_ens[0].T, **kw1)
 cbar = add_colorbar(im)
 cbar.set_label(r"$T$ / m s$^{-1}$")
 ax.set_xlabel(r"$x$ / m")
@@ -145,12 +143,13 @@ fig.show()
 # plot absolute difference ####################################################
 
 fig, ax = plt.subplots()
-im2 = ax.imshow(np.abs(herten_T.T - herten_ens[0].T), cmap="YlOrRd", **kw1)
+im2 = ax.imshow(np.abs(herten_T.T - herten_ens[0].T), cmap="YlOrRd", **kw)
 ax.set_aspect("equal")
 cbar = add_colorbar(im2)
 cbar.set_label(r"Absolute Difference $T$ / m s$^{-1}$")
 ax.set_xlabel(r"$x$ / m")
 ax.set_ylabel(r"$y$ / m")
+ax.add_patch(copy.copy(rect))
 
 fig.tight_layout()
 fig.savefig(Path("../results/2d_herten_difference.pdf"), dpi=300)
