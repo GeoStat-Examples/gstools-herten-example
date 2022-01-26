@@ -8,7 +8,8 @@ import seaborn as sns
 import numpy as np
 import gstools as gs
 
-
+import os
+os.chdir(os.path.dirname(__file__))
 # some plotting definitions
 s_size_2d = 1.5
 s_size_1d = 10.0
@@ -78,7 +79,7 @@ fit = fit_model.fit_variogram(bin_center, gamma, nugget=False, return_r2=True)
 ax = fit_model.plot(x_max=max(bin_center))
 ax.scatter(bin_center, gamma)
 ax.set_xlabel(r"Distance $r$ / m")
-ax.set_ylabel(r"Variogram$")
+ax.set_ylabel(r"Variogram")
 
 fig = ax.get_figure()
 fig.tight_layout()
@@ -119,7 +120,7 @@ rect = pat.Rectangle(*rect_dim, edgecolor='k', facecolor='none')
 fig, ax = plt.subplots(1)
 im = ax.imshow(herten_T.T, **kw1)
 cbar = add_colorbar(im)
-cbar.set_label(r"$T$ / m s$^{-1}$")
+cbar.set_label(r"$T$ / m$^{2}$ s$^{-1}$")
 ax.set_xlabel(r"$x$ / m")
 ax.set_ylabel(r"$y$ / m")
 ax.add_patch(copy.copy(rect))
@@ -131,7 +132,7 @@ fig.show()
 fig, ax = plt.subplots(1)
 im = ax.imshow(herten_ens[0].T, **kw1)
 cbar = add_colorbar(im)
-cbar.set_label(r"$T$ / m s$^{-1}$")
+cbar.set_label(r"$T$ / m$^{2}$ s$^{-1}$")
 ax.set_xlabel(r"$x$ / m")
 ax.set_ylabel(r"$y$ / m")
 ax.add_patch(copy.copy(rect))
@@ -146,7 +147,7 @@ fig, ax = plt.subplots()
 im2 = ax.imshow(np.abs(herten_T.T - herten_ens[0].T), cmap="YlOrRd", **kw)
 ax.set_aspect("equal")
 cbar = add_colorbar(im2)
-cbar.set_label(r"Absolute Difference $T$ / m s$^{-1}$")
+cbar.set_label(r"Absolute Difference $T$ / m$^{2}$ s$^{-1}$")
 ax.set_xlabel(r"$x$ / m")
 ax.set_ylabel(r"$y$ / m")
 ax.add_patch(copy.copy(rect))
@@ -182,7 +183,7 @@ ax.scatter(
     zorder=10,
 )
 ax.set_ylim(0.3, 0.65)
-ax.set_ylabel(r"Transmissivity $T$ / m s$^{-1}$")
+ax.set_ylabel(r"Transmissivity $T$ / m$^{2}$ s$^{-1}$")
 ax.set_xlabel(r"Distance $x$ / m")
 
 fig.tight_layout()
